@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Ghar Ka Khana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D97757;
+            --primary-dark: #C25A3B;
+            --secondary-color: #F4E8D8;
+            --accent-color: #8B6F47;
+            --text-dark: #2C2416;
+            --text-light: #6B5D4F;
+            --bg-cream: #FFF9F0;
+            --bg-white: #FFFFFF;
+            --shadow: rgba(217, 119, 87, 0.1);
+            --border-color: rgba(139, 111, 71, 0.15);
+            --success-color: #4CAF50;
+            --danger-color: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .admin-header {
+            background: var(--bg-white);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 20px var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .admin-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            color: var(--primary-color);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-dark);
+        }
+
+        .refresh-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .refresh-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Table Container */
+        .table-container {
+            background: var(--bg-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--secondary-color);
+        }
+
+        th {
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-dark);
+        }
+
+        tbody tr {
+            transition: all 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background: var(--bg-cream);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .action-btn.delete {
+            color: var(--danger-color);
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .action-btn.delete:hover {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge.lunch {
+            background: #E3F2FD;
+            color: #1976D2;
+        }
+
+        .badge.dinner {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .badge.both {
+            background: #E8F5E9;
+            color: #388E3C;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 800px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <div class="admin-logo">
+            <div class="logo-icon">🍱</div>
+            Ghar Ka Khana - Admin Panel
+        </div>
+        <div class="admin-badge">👨‍💼 Administrator</div>
+    </div>
+
+    <div class="container">
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📦</div>
+                </div>
+                <div class="stat-title">Total Bookings</div>
+                <div class="stat-value" id="totalBookings">-</div>
+                <div class="stat-subtitle">All time bookings</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📞</div>
+                </div>
+                <div class="stat-title">Call Requests</div>
+                <div class="stat-value" id="totalCallRequests">-</div>
+                <div class="stat-subtitle">All time requests</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📅</div>
+                </div>
+                <div class="stat-title">Today's Bookings</div>
+                <div class="stat-value" id="todayBookings">-</div>
+                <div class="stat-subtitle">New bookings today</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📲</div>
+                </div>
+                <div class="stat-title">Today's Calls</div>
+                <div class="stat-value" id="todayCallRequests">-</div>
+                <div class="stat-subtitle">New requests today</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">📧</div>
+                </div>
+                <div class="stat-title">Emails Sent</div>
+                <div class="stat-value" id="emailsSent">-</div>
+                <div class="stat-subtitle">Renewal reminders sent</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="bookings">Tiffin Bookings</button>
+            <button class="tab" data-tab="calls">Call Requests</button>
+            <button class="tab" data-tab="emails">📧 Email Logs</button>
+        </div>
+
+        <!-- Bookings Tab -->
+        <div class="tab-content active" id="bookings">
+            <div class="section-header">
+                <h2>Tiffin Booking Requests</h2>
+                <button class="refresh-btn" onclick="loadBookings()">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+                <div id="bookingsLoading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading bookings...</p>
+                </div>
+                <div id="bookingsTable" style="display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Meal Type</th>
+                                <th>Plan</th>
+                                <th>Start Date</th>
+                                <th>Date Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookingsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div id="bookingsEmpty" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No Bookings Yet</h3>
+                    <p>New booking requests will appear here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call Requests Tab -->
+        <div class="tab-content" id="calls">
+            <div class="section-header">
+                <h2>Call Back Requests</h2>
+                <button class="refresh-btn" onclick="loadCallRequests()">
+                    🔄 Refresh
+                </button>
+            </div>
+
+            <div class="table-container">
+                <div id="callsLoading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading call requests...</p>
+                </div>
+                <div id="callsTable" style="display: none;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone Number</th>
+                                <th>Request Date & Time</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="callsTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <div id="callsEmpty" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No Call Requests Yet</h3>
+                    <p>New call requests will appear here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Format date and time
+        function formatDateTime(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Get meal type badge
+        function getMealTypeBadge(mealType) {
+            const type = mealType.toLowerCase();
+            return `<span class="badge ${type}">${mealType}</span>`;
+        }
+
+        // Load Statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const result = await response.json();
+                
+                if (result.success) {
+                    const stats = result.data;
+                    document.getElementById('totalBookings').textContent = stats.totalBookings;
+                    document.getElementById('totalCallRequests').textContent = stats.totalCallRequests;
+                    document.getElementById('todayBookings').textContent = stats.todayBookings;
+                    document.getElementById('todayCallRequests').textContent = stats.todayCallRequests;
+                    document.getElementById('emailsSent').textContent = stats.emailsSent || 0;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Load Email Logs
+        async function loadEmailLogs() {
+            const loading = document.getElementById('emailsLoading');
+            const table   = document.getElementById('emailsTable');
+            const empty   = document.getElementById('emailsEmpty');
+            const tbody   = document.getElementById('emailsTableBody');
+
+            loading.style.display = 'block'; table.style.display = 'none'; empty.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/email-logs');
+                const result = await response.json();
+                loading.style.display = 'none';
+
+                if (result.success && result.data.length > 0) {
+                    table.style.display = 'block';
+                    tbody.innerHTML = result.data.map(log => `
+                        <tr>
+                            <td><strong>#${log.id}</strong></td>
+                            <td>${log.name || '-'}</td>
+                            <td>${log.email || '-'}</td>
+                            <td style="text-align:center;"><span class="badge ${log.days_left <= 3 ? 'dinner' : 'lunch'}">${log.days_left} day${log.days_left === 1 ? '' : 's'}</span></td>
+                            <td><span class="badge ${log.status === 'sent' ? 'both' : 'dinner'}">${log.status === 'sent' ? '✅ Sent' : '❌ Failed'}</span></td>
+                            <td>${formatDateTime(log.sent_at)}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    empty.style.display = 'block';
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                console.error('Error loading email logs:', error);
+            }
+        }
+
+        // Load Bookings
+        async function loadBookings() {
+            const loading = document.getElementById('bookingsLoading');
+            const table = document.getElementById('bookingsTable');
+            const empty = document.getElementById('bookingsEmpty');
+            const tbody = document.getElementById('bookingsTableBody');
+
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            empty.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/bookings');
+                const result = await response.json();
+
+                loading.style.display = 'none';
+
+                if (result.success && result.data.length > 0) {
+                    table.style.display = 'block';
+                    tbody.innerHTML = result.data.map(booking => `
+                        <tr>
+                            <td><strong>#${booking.id}</strong></td>
+                            <td>${booking.name}</td>
+                            <td>${booking.phone}</td>
+                            <td>${booking.email || '-'}</td>
+                            <td style="max-width: 200px;">${booking.address}</td>
+                            <td>${getMealTypeBadge(booking.meal_type)}</td>
+                            <td>${booking.plan_type}</td>
+                            <td>${formatDate(booking.start_date)}</td>
+                            <td>${formatDateTime(booking.created_at)}</td>
+                            <td>
+                                <button class="action-btn delete" onclick="deleteBooking(${booking.id})">
+                                    🗑️ Delete
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    empty.style.display = 'block';
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                console.error('Error loading bookings:', error);
+                alert('Error loading bookings. Please try again.');
+            }
+        }
+
+        // Load Call Requests
+        async function loadCallRequests() {
+            const loading = document.getElementById('callsLoading');
+            const table = document.getElementById('callsTable');
+            const empty = document.getElementById('callsEmpty');
+            const tbody = document.getElementById('callsTableBody');
+
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            empty.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/call-requests');
+                const result = await response.json();
+
+                loading.style.display = 'none';
+
+                if (result.success && result.data.length > 0) {
+                    table.style.display = 'block';
+                    tbody.innerHTML = result.data.map(call => `
+                        <tr>
+                            <td><strong>#${call.id}</strong></td>
+                            <td>${call.name}</td>
+                            <td><strong>${call.phone}</strong></td>
+                            <td>${formatDateTime(call.created_at)}</td>
+                            <td>
+                                <button class="action-btn delete" onclick="deleteCallRequest(${call.id})">
+                                    🗑️ Delete
+                                </button>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    empty.style.display = 'block';
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                console.error('Error loading call requests:', error);
+                alert('Error loading call requests. Please try again.');
+            }
+        }
+
+        // Delete Booking
+        async function deleteBooking(id) {
+            if (!confirm('Are you sure you want to delete this booking?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/bookings/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    loadBookings();
+                    loadStats();
+                } else {
+                    alert('Error deleting booking: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error deleting booking:', error);
+                alert('Error deleting booking. Please try again.');
+            }
+        }
+
+        // Delete Call Request
+        async function deleteCallRequest(id) {
+            if (!confirm('Are you sure you want to delete this call request?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/call-requests/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    loadCallRequests();
+                    loadStats();
+                } else {
+                    alert('Error deleting call request: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error deleting call request:', error);
+                alert('Error deleting call request. Please try again.');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStats();
+            loadBookings();
+            loadCallRequests();
+            loadEmailLogs();
+
+            // Auto-refresh every 30 seconds
+            setInterval(() => {
+                loadStats();
+                const active = document.querySelector('.tab-content.active');
+                if (active && active.id === 'bookings')  loadBookings();
+                else if (active && active.id === 'calls') loadCallRequests();
+                else if (active && active.id === 'emails') loadEmailLogs();
+            }, 30000);
+        });
+    </script>
+</body>
+</html>

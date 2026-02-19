@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghar Ka Khana – Home-Cooked Tiffin Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary:#D97757;--primary-dk:#C25A3B;--secondary:#F4E8D8;
+            --accent:#8B6F47;--dark:#2C2416;--muted:#6B5D4F;
+            --bg:#FFF9F0;--white:#FFFFFF;
+            --shadow:rgba(217,119,87,.12);--border:rgba(139,111,71,.15);
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Karla',sans-serif;background:var(--bg);color:var(--dark);line-height:1.7;overflow-x:hidden;}
+
+        /* HEADER */
+        header{background:var(--white);padding:1rem 2rem;box-shadow:0 2px 20px var(--shadow);position:sticky;top:0;z-index:200;animation:slideDown .55s ease both;}
+        @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+        nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo{font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:.5rem;}
+        .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--primary-dk));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.3rem;}
+        .nav-links{display:flex;gap:2rem;list-style:none;}
+        .nav-links a{color:var(--dark);text-decoration:none;font-weight:500;position:relative;transition:color .3s;}
+        .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:width .3s;}
+        .nav-links a:hover{color:var(--primary);}
+        .nav-links a:hover::after{width:100%;}
+        .hamburger{display:none;background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--dark);}
+
+        /* HERO */
+        .hero{max-width:1200px;margin:4rem auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;animation:fadeUp .8s .2s ease both;}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+        .hero-content h1{font-family:'Playfair Display',serif;font-size:3.4rem;line-height:1.2;margin-bottom:1.2rem;}
+        .hero-tagline{font-size:1.25rem;color:var(--primary);font-weight:500;margin-bottom:1.2rem;}
+        .hero-desc{font-size:1.05rem;color:var(--muted);margin-bottom:2rem;}
+        .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;}
+        .feat{display:flex;align-items:flex-start;gap:.9rem;padding:1rem;background:var(--white);border-radius:14px;border:1px solid var(--border);transition:all .3s;}
+        .feat:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow);}
+        .feat-icon{width:44px;height:44px;background:var(--secondary);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+        .feat-text h3{font-size:.95rem;font-weight:600;margin-bottom:.2rem;}
+        .feat-text p{font-size:.85rem;color:var(--muted);}
+        .hero-visual{animation:fadeUp .8s .4s ease both;}
+        .hero-img-wrap{background:linear-gradient(135deg,var(--secondary),#FFF3E0);border-radius:30px;padding:1.8rem;position:relative;overflow:hidden;}
+        .hero-img-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(217,119,87,.12) 0%,transparent 60%);animation:pulse 6s ease-in-out infinite alternate;}
+        @keyframes pulse{from{transform:scale(1)}to{transform:scale(1.15)}}
+        .hero-emoji{width:100%;height:380px;background:var(--white);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:7rem;box-shadow:0 20px 60px rgba(0,0,0,.1);}
+
+        /* FOOD SLIDER */
+        .slider-section{max-width:1200px;margin:5rem auto;padding:0 2rem;}
+        .section-header{text-align:center;margin-bottom:2.5rem;}
+        .section-header h2{font-family:'Playfair Display',serif;font-size:2.6rem;margin-bottom:.8rem;}
+        .section-header p{font-size:1.05rem;color:var(--muted);}
+        .slider-container{position:relative;overflow:hidden;border-radius:28px;box-shadow:0 16px 60px rgba(0,0,0,.14);}
+        .slider-track{display:flex;transition:transform .6s cubic-bezier(.77,0,.175,1);}
+        .slide{min-width:100%;position:relative;height:480px;flex-shrink:0;overflow:hidden;}
+        .slide-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;}
+        .slide:nth-child(1) .slide-inner{background:linear-gradient(135deg,#e55d3d 0%,#f4a46a 40%,#ffd6a5 100%);}
+        .slide:nth-child(2) .slide-inner{background:linear-gradient(135deg,#6a0572 0%,#c94b4b 60%,#f27059 100%);}
+        .slide:nth-child(3) .slide-inner{background:linear-gradient(135deg,#0d7d5c 0%,#11998e 50%,#56ab91 100%);}
+        .slide:nth-child(4) .slide-inner{background:linear-gradient(135deg,#b06a00 0%,#f7971e 50%,#ffd200 100%);}
+        .slide:nth-child(5) .slide-inner{background:linear-gradient(135deg,#1a0533 0%,#6a1a7a 50%,#c850c0 100%);}
+        .slide:nth-child(6) .slide-inner{background:linear-gradient(135deg,#1a2a6c 0%,#b21f1f 50%,#fdbb2d 100%);}
+        .slide-bg-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:14rem;opacity:.13;transform:rotate(-8deg) scale(1.3);pointer-events:none;user-select:none;}
+        .slide-content{position:relative;z-index:2;text-align:center;padding:2.5rem;color:#fff;}
+        .slide-big-emoji{font-size:5rem;margin-bottom:1rem;display:block;filter:drop-shadow(0 8px 24px rgba(0,0,0,.3));animation:floatEmoji 3s ease-in-out infinite;}
+        @keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+        .slide-content h3{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.25);margin-bottom:.7rem;}
+        .slide-content p{font-size:1.05rem;opacity:.93;max-width:440px;margin:0 auto 1.2rem;text-shadow:0 1px 6px rgba(0,0,0,.2);}
+        .slide-tags{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;}
+        .slide-tag{background:rgba(255,255,255,.22);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);color:#fff;padding:.35rem 1rem;border-radius:50px;font-size:.85rem;font-weight:500;}
+        .slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border:none;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--dark);box-shadow:0 4px 20px rgba(0,0,0,.15);transition:all .25s;}
+        .slider-btn:hover{background:#fff;transform:translateY(-50%) scale(1.08);}
+        .slider-btn.prev{left:1.2rem;}.slider-btn.next{right:1.2rem;}
+        .slider-dots{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);display:flex;gap:.6rem;z-index:10;}
+        .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s;border:none;}
+        .dot.active{background:#fff;width:28px;border-radius:5px;}
+
+        /* ═══════════════════════════════════════════════
+           MODERN MENU SECTION
+        ═══════════════════════════════════════════════ */
+        .menu-section { max-width:1300px; margin:7rem auto; padding:0 2rem; }
+
+        /* Day Selector — pill strip */
+        .day-strip {
+            display:flex; gap:0; justify-content:center;
+            background:var(--white);
+            border-radius:60px;
+            padding:.35rem;
+            box-shadow:0 4px 24px var(--shadow);
+            border:1px solid var(--border);
+            max-width:680px; margin:0 auto 3.5rem;
+            overflow-x:auto;
+        }
+        .day-strip::-webkit-scrollbar{ display:none; }
+        .day-btn {
+            flex:1; min-width:70px;
+            background:none; border:none;
+            padding:.7rem 1.1rem;
+            border-radius:50px;
+            font-family:'Karla',sans-serif;
+            font-size:.9rem; font-weight:600;
+            color:var(--muted); cursor:pointer;
+            transition:all .3s; white-space:nowrap;
+            position:relative;
+        }
+        .day-btn .day-abbr { display:block; font-size:.75rem; opacity:.65; margin-bottom:.1rem; }
+        .day-btn .day-name { display:block; }
+        .day-btn.active {
+            background:linear-gradient(135deg,var(--primary),var(--primary-dk));
+            color:#fff;
+            box-shadow:0 4px 16px rgba(217,119,87,.4);
+        }
+        .day-btn:not(.active):hover { background:var(--secondary); color:var(--dark); }
+
+        /* Meal-type toggle */
+        .meal-toggle {
+            display:flex; justify-content:center; gap:.8rem; margin-bottom:2.5rem;
+        }
+        .meal-btn {
+            background:var(--white); border:2px solid var(--border);
+            padding:.6rem 2rem; border-radius:50px;
+            font-family:'Karla',sans-serif; font-size:.95rem; font-weight:600;
+            color:var(--muted); cursor:pointer; transition:all .3s;
+            display:flex; align-items:center; gap:.5rem;
+        }
+        .meal-btn.active { background:var(--dark); color:#fff; border-color:var(--dark); }
+        .meal-btn:not(.active):hover { border-color:var(--primary); color:var(--primary); }
+
+        /* Menu content panel */
+        .menu-panel{ display:none; }
+        .menu-panel.active{ display:block; animation:menuIn .4s ease; }
+        @keyframes menuIn{ from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+        /* Meal sub-panel */
+        .meal-panel{ display:none; }
+        .meal-panel.active{ display:block; }
+
+        /* ── Image Food Card Grid ── */
+        .food-card-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:1.5rem;
+        }
+
+        .food-card {
+            background:var(--white);
+            border-radius:22px;
+            overflow:hidden;
+            border:1px solid var(--border);
+            transition:all .35s cubic-bezier(.34,1.56,.64,1);
+            cursor:default;
+            position:relative;
+        }
+        .food-card:hover {
+            transform:translateY(-10px) scale(1.02);
+            box-shadow:0 24px 60px rgba(44,36,22,.14);
+        }
+
+        /* Image area */
+        .food-img {
+            width:100%; height:180px;
+            object-fit:cover;
+            display:block;
+            transition:transform .5s ease;
+        }
+        .food-card:hover .food-img { transform:scale(1.07); }
+
+        /* Fallback gradient when img fails */
+        .food-img-wrap {
+            height:180px; overflow:hidden; position:relative;
+            background:var(--secondary);
+        }
+        .food-img-wrap::after {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(to bottom, transparent 40%, rgba(44,36,22,.28) 100%);
+            pointer-events:none;
+        }
+
+        /* Badge */
+        .food-badge {
+            position:absolute; top:12px; left:12px;
+            background:rgba(255,255,255,.92);
+            backdrop-filter:blur(6px);
+            border-radius:50px; padding:.3rem .85rem;
+            font-size:.78rem; font-weight:700;
+            color:var(--dark); z-index:2;
+            display:flex; align-items:center; gap:.3rem;
+            box-shadow:0 2px 10px rgba(0,0,0,.08);
+        }
+
+        /* Card body */
+        .food-card-body { padding:1.2rem 1.3rem 1.4rem; }
+        .food-card-body h4 {
+            font-family:'Playfair Display',serif;
+            font-size:1.1rem; font-weight:700;
+            color:var(--dark); margin-bottom:.35rem;
+            line-height:1.3;
+        }
+        .food-card-body p {
+            font-size:.85rem; color:var(--muted); line-height:1.5;
+            margin-bottom:.8rem;
+        }
+        .food-tags { display:flex; gap:.4rem; flex-wrap:wrap; }
+        .food-tag {
+            background:var(--secondary);
+            color:var(--accent); font-size:.75rem;
+            font-weight:600; padding:.25rem .7rem;
+            border-radius:50px;
+        }
+
+        /* Featured card (spans 2 cols) */
+        .food-card.featured { grid-column:span 2; }
+        .food-card.featured .food-img-wrap { height:240px; }
+        .food-card.featured .food-img { height:240px; }
+        .food-card.featured .food-card-body h4 { font-size:1.3rem; }
+
+        /* BOOKING */
+        .booking-section{max-width:1200px;margin:6rem auto;padding:0 2rem;}
+        .booking-form{background:var(--white);border-radius:30px;padding:3rem;box-shadow:0 10px 50px var(--shadow);max-width:720px;margin:0 auto;}
+        .form-group{margin-bottom:1.5rem;}
+        .form-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--dark);}
+        .form-group input,.form-group select,.form-group textarea{width:100%;padding:1rem;border:2px solid var(--border);border-radius:12px;font-family:'Karla',sans-serif;font-size:1rem;transition:all .3s;background:var(--bg);}
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(217,119,87,.12);background:var(--white);}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+        .radio-group{display:flex;gap:2rem;margin-top:.5rem;flex-wrap:wrap;}
+        .radio-group label{display:flex;align-items:center;gap:.5rem;font-weight:500;cursor:pointer;}
+        .radio-group input{width:auto;}
+        .email-note{text-align:center;margin-top:1rem;font-size:.85rem;color:var(--muted);}
+
+        /* CONTACT */
+        .contact-section{max-width:1200px;margin:6rem auto;padding:0 2rem;}
+        .contact-card{background:linear-gradient(135deg,var(--primary),var(--primary-dk));color:#fff;border-radius:30px;padding:3.5rem;text-align:center;position:relative;overflow:hidden;}
+        .contact-card::before{content:'';position:absolute;inset:-50%;background:radial-gradient(circle,rgba(255,255,255,.08) 0%,transparent 65%);animation:rotateBg 25s linear infinite;}
+        @keyframes rotateBg{to{transform:rotate(360deg)}}
+        .contact-card h2{font-family:'Playfair Display',serif;font-size:2.4rem;margin-bottom:.8rem;position:relative;}
+        .contact-card>.card-desc{font-size:1.15rem;margin-bottom:2rem;position:relative;}
+        .contact-form{max-width:480px;margin:0 auto;position:relative;}
+        .contact-form input{width:100%;padding:1rem;border:2px solid rgba(255,255,255,.3);border-radius:12px;font-family:'Karla',sans-serif;font-size:1rem;background:rgba(255,255,255,.92);margin-bottom:1rem;transition:all .3s;}
+        .contact-form input:focus{outline:none;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.2);}
+        .contact-info{position:relative;margin-top:2rem;}
+        .contact-info p{margin:.4rem 0;}
+
+        /* BUTTONS */
+        .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--primary);color:#fff;padding:1rem 2.5rem;border-radius:50px;font-weight:600;font-size:1rem;border:none;cursor:pointer;text-decoration:none;transition:all .3s;box-shadow:0 4px 15px rgba(217,119,87,.3);}
+        .btn:hover{background:var(--primary-dk);transform:translateY(-2px);box-shadow:0 6px 24px rgba(217,119,87,.4);}
+        .btn:disabled{background:#bbb;cursor:not-allowed;transform:none;}
+        .btn-white{background:#fff;color:var(--primary);}
+        .btn-white:hover{background:var(--bg);}
+        .btn-block{width:100%;}
+
+        /* FOOTER */
+        footer{background:var(--dark);color:var(--secondary);padding:3rem 2rem 1.5rem;margin-top:6rem;}
+        .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+        .footer-brand h3{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--primary);margin-bottom:.8rem;}
+        .footer-col h4{margin-bottom:.8rem;color:#fff;}
+        .footer-col ul{list-style:none;}
+        .footer-col a{color:var(--secondary);text-decoration:none;display:block;margin-bottom:.4rem;transition:color .3s;}
+        .footer-col a:hover{color:var(--primary);}
+        .footer-bottom{text-align:center;padding-top:1.5rem;border-top:1px solid rgba(244,232,216,.15);font-size:.9rem;}
+
+        /* MODAL */
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:500;justify-content:center;align-items:center;}
+        .modal.show{display:flex;}
+        .modal-box{background:var(--white);border-radius:28px;padding:3rem;max-width:460px;width:90%;text-align:center;animation:popIn .35s ease;}
+        @keyframes popIn{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+        .modal-icon{font-size:4rem;margin-bottom:1rem;}
+        .modal-box h2{font-family:'Playfair Display',serif;color:var(--primary);font-size:1.9rem;margin-bottom:.8rem;}
+        .modal-box p{color:var(--muted);margin-bottom:1.5rem;white-space:pre-line;}
+        .modal-close{background:var(--primary);color:#fff;border:none;padding:.8rem 2rem;border-radius:50px;font-weight:600;cursor:pointer;transition:all .3s;}
+        .modal-close:hover{background:var(--primary-dk);}
+
+        /* SPINNER */
+        .spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.35);border-radius:50%;border-top-color:#fff;animation:rotateBg .9s linear infinite;display:inline-block;}
+
+        /* FADE-IN */
+        .fade-in{opacity:0;transform:translateY(28px);transition:all .65s ease;}
+        .fade-in.visible{opacity:1;transform:translateY(0);}
+
+        /* RESPONSIVE */
+        @media(max-width:1100px){
+            .food-card-grid{grid-template-columns:repeat(2,1fr);}
+            .food-card.featured{grid-column:span 2;}
+        }
+        @media(max-width:900px){
+            .hero{grid-template-columns:1fr;gap:2rem;margin-top:2rem;}
+            .hero-content h1{font-size:2.4rem;}
+            .footer-grid{grid-template-columns:1fr;gap:2rem;}
+        }
+        @media(max-width:768px){
+            .nav-links{position:fixed;top:68px;left:-100%;width:100%;background:var(--white);flex-direction:column;padding:2rem;box-shadow:0 12px 40px var(--shadow);transition:left .3s;}
+            .nav-links.open{left:0;}
+            .hamburger{display:block;}
+            .features-grid{grid-template-columns:1fr;}
+            .section-header h2{font-size:2rem;}
+            .form-row{grid-template-columns:1fr;}
+            .slide{height:360px;}
+            .slide-content h3{font-size:1.6rem;}
+            .booking-form{padding:1.8rem;}
+            .food-card-grid{grid-template-columns:1fr;}
+            .food-card.featured{grid-column:span 1;}
+            .food-card.featured .food-img-wrap,.food-card.featured .food-img{height:200px;}
+            .day-strip{max-width:100%;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="#" class="logo"><div class="logo-icon">🍱</div>Ghar Ka Khana</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Our Food</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#booking">Book Now</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger">☰</button>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>Home-Cooked Meals, Delivered Fresh Daily</h1>
+        <p class="hero-tagline">Just Like Mom Made It! 🏡</p>
+        <p class="hero-desc">Experience the warmth of home-style cooking with our delicious tiffin service. Fresh, healthy, and affordable meals delivered right to your doorstep — every single day.</p>
+        <div class="features-grid">
+            <div class="feat"><div class="feat-icon">🥘</div><div class="feat-text"><h3>Home-Style Food</h3><p>Authentic recipes made with love</p></div></div>
+            <div class="feat"><div class="feat-icon">🌱</div><div class="feat-text"><h3>Daily Fresh Meals</h3><p>Prepared fresh every morning</p></div></div>
+            <div class="feat"><div class="feat-icon">💰</div><div class="feat-text"><h3>Affordable Pricing</h3><p>Great quality at fair prices</p></div></div>
+            <div class="feat"><div class="feat-icon">🚚</div><div class="feat-text"><h3>Doorstep Delivery</h3><p>On-time delivery guaranteed</p></div></div>
+        </div>
+        <a href="#booking" class="btn" style="margin-top:.5rem;">🍽️ Book Tiffin Service</a>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-img-wrap"><div class="hero-emoji">🍛</div></div>
+    </div>
+</section>
+
+<!-- FOOD SLIDER -->
+<section class="slider-section fade-in" id="gallery">
+    <div class="section-header">
+        <h2>A Feast for Your Eyes 👀</h2>
+        <p>Fresh, colourful, home-cooked — every plate tells a story of love and tradition</p>
+    </div>
+    <div class="slider-container">
+        <div class="slider-track" id="sliderTrack">
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🍛</div><div class="slide-content"><span class="slide-big-emoji">🍛</span><h3>Aromatic Dal Tadka &amp; Rice</h3><p>Our signature yellow dal tempered with cumin, mustard seeds &amp; fresh ghee — a daily staple cooked the old-fashioned way.</p><div class="slide-tags"><span class="slide-tag">🌿 Veg</span><span class="slide-tag">🥄 Comfort Food</span><span class="slide-tag">🔥 Freshly Made</span></div></div></div></div>
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🧆</div><div class="slide-content"><span class="slide-big-emoji">🍢</span><h3>Shahi Paneer Curry</h3><p>Soft cottage cheese in a rich, creamy tomato-cashew gravy — the pride of every special occasion, now on your daily plate.</p><div class="slide-tags"><span class="slide-tag">🧀 Paneer</span><span class="slide-tag">👑 Shahi Recipe</span><span class="slide-tag">🌶️ Mild Spice</span></div></div></div></div>
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🥗</div><div class="slide-content"><span class="slide-big-emoji">🥗</span><h3>Fresh Garden Kachumber</h3><p>Crisp cucumber, tomato, onion &amp; coriander tossed with lemon &amp; chaat masala — the perfect crunchy companion.</p><div class="slide-tags"><span class="slide-tag">🥒 Fresh Cut</span><span class="slide-tag">🍋 Tangy</span><span class="slide-tag">💚 Healthy</span></div></div></div></div>
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🫓</div><div class="slide-content"><span class="slide-big-emoji">🫓</span><h3>Soft Phulka Rotis</h3><p>Hand-rolled, puffed on a live flame — our rotis are soft, warm and ready to soak up every last drop of your favourite sabzi.</p><div class="slide-tags"><span class="slide-tag">🌾 Whole Wheat</span><span class="slide-tag">🔥 Fresh &amp; Hot</span><span class="slide-tag">🧈 Ghee Finish</span></div></div></div></div>
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🍮</div><div class="slide-content"><span class="slide-big-emoji">🍮</span><h3>Homemade Gulab Jamun</h3><p>Melt-in-your-mouth khoya dumplings soaked in cardamom-rose syrup — because every meal deserves a sweet ending.</p><div class="slide-tags"><span class="slide-tag">🌹 Rose Syrup</span><span class="slide-tag">🍬 Sweet Treat</span><span class="slide-tag">👨‍🍳 Homemade</span></div></div></div></div>
+            <div class="slide"><div class="slide-inner"><div class="slide-bg-emoji">🍲</div><div class="slide-content"><span class="slide-big-emoji">🍲</span><h3>Sunday Special Biryani</h3><p>Fragrant basmati layered with vegetables, saffron &amp; whole spices — our chef's Sunday gift to make your weekend extra special.</p><div class="slide-tags"><span class="slide-tag">🌸 Saffron</span><span class="slide-tag">🎉 Sunday Special</span><span class="slide-tag">🍚 Dum Cooked</span></div></div></div></div>
+        </div>
+        <button class="slider-btn prev" id="sliderPrev">&#8249;</button>
+        <button class="slider-btn next" id="sliderNext">&#8250;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+    </div>
+</section>
+
+<!-- ═══ MODERN MENU SECTION ═══ -->
+<section class="menu-section fade-in" id="menu">
+    <div class="section-header">
+        <h2>Weekly Menu</h2>
+        <p>Tap any day, pick Lunch or Dinner — explore what's on your plate today</p>
+    </div>
+
+    <!-- Day pill strip -->
+    <div class="day-strip" id="dayStrip">
+        <button class="day-btn active" data-day="monday"><span class="day-abbr">MON</span><span class="day-name">Monday</span></button>
+        <button class="day-btn" data-day="tuesday"><span class="day-abbr">TUE</span><span class="day-name">Tuesday</span></button>
+        <button class="day-btn" data-day="wednesday"><span class="day-abbr">WED</span><span class="day-name">Wednesday</span></button>
+        <button class="day-btn" data-day="thursday"><span class="day-abbr">THU</span><span class="day-name">Thursday</span></button>
+        <button class="day-btn" data-day="friday"><span class="day-abbr">FRI</span><span class="day-name">Friday</span></button>
+        <button class="day-btn" data-day="saturday"><span class="day-abbr">SAT</span><span class="day-name">Saturday</span></button>
+        <button class="day-btn" data-day="sunday"><span class="day-abbr">SUN</span><span class="day-name">Sunday</span></button>
+    </div>
+
+    <!-- Meal toggle -->
+    <div class="meal-toggle">
+        <button class="meal-btn active" data-meal="lunch">🌅 Lunch</button>
+        <button class="meal-btn" data-meal="dinner">🌙 Dinner</button>
+    </div>
+
+    <!-- MONDAY -->
+    <div class="menu-panel active" id="monday">
+        <div class="meal-panel active" id="monday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Star of the Day</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=800&q=80" alt="Aloo Gobhi" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Aloo Gobhi Sabzi</h4>
+                        <p>Golden potatoes &amp; cauliflower tossed with cumin, ginger and a blend of whole spices — hearty and wonderfully fragrant.</p>
+                        <div class="food-tags"><span class="food-tag">🥔 Aloo</span><span class="food-tag">🥦 Gobhi</span><span class="food-tag">🌿 Veg</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Dal Tadka" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Yellow Dal Tadka</h4>
+                        <p>Smooth arhar dal tempered with mustard, garlic and dried red chilli in ghee.</p>
+                        <div class="food-tags"><span class="food-tag">🧄 Garlic Tadka</span><span class="food-tag">🔥 Fresh</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1596560548464-f010b69bcd38?w=600&q=80" alt="Jeera Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Jeera Rice</h4>
+                        <p>Fluffy basmati kissed with toasted cumin seeds and a drizzle of ghee.</p>
+                        <div class="food-tags"><span class="food-tag">🌾 Basmati</span><span class="food-tag">🧈 Ghee</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🫓 Bread</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Phulka Roti" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>4 Phulka Roti</h4>
+                        <p>Soft whole-wheat rotis puffed on a live flame, served hot with a pat of butter.</p>
+                        <div class="food-tags"><span class="food-tag">🌾 Whole Wheat</span><span class="food-tag">🔥 Tandoor</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥗 Sides</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Salad" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Fresh Green Salad + Pickle &amp; Papad</h4>
+                        <p>Crisp seasonal greens alongside tangy mango pickle and crunchy roasted papad.</p>
+                        <div class="food-tags"><span class="food-tag">💚 Fresh</span><span class="food-tag">🥒 Crunchy</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="monday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Tonight's Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80" alt="Dal Makhani" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Dal Makhani</h4>
+                        <p>Slow-cooked black lentils simmered overnight with butter and cream — rich, velvety and deeply satisfying.</p>
+                        <div class="food-tags"><span class="food-tag">🧈 Butter</span><span class="food-tag">🌙 Slow Cooked</span><span class="food-tag">🍶 Creamy</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥘 Sabzi</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=600&q=80" alt="Mixed Veg Curry" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Mixed Veg Curry</h4>
+                        <p>Seasonal vegetables in a tomato-onion gravy loaded with homemade masalas.</p>
+                        <div class="food-tags"><span class="food-tag">🌈 Colourful</span><span class="food-tag">🌿 Veg</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=600&q=80" alt="Steamed Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Steamed Rice + 4 Chapati</h4>
+                        <p>Long-grain steamed rice paired with soft hand-rolled chapatis.</p>
+                        <div class="food-tags"><span class="food-tag">🌾 Long Grain</span><span class="food-tag">🫓 Soft</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥛 Raita</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1606756389658-a1dd273b6cc0?w=600&q=80" alt="Raita" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Cucumber Raita</h4>
+                        <p>Cooling whisked curd with grated cucumber, roasted cumin and fresh mint.</p>
+                        <div class="food-tags"><span class="food-tag">❄️ Cooling</span><span class="food-tag">🥒 Fresh</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1666711651912-be27d48a5978?w=600&q=80" alt="Gulab Jamun" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Gulab Jamun</h4>
+                        <p>Melt-in-your-mouth khoya dumplings soaked in rose-cardamom syrup.</p>
+                        <div class="food-tags"><span class="food-tag">🌹 Rose</span><span class="food-tag">🍬 Sweet</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TUESDAY -->
+    <div class="menu-panel" id="tuesday">
+        <div class="meal-panel active" id="tuesday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Star of the Day</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1631292784640-2b24be784d5d?w=800&q=80" alt="Paneer Bhurji" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Paneer Bhurji</h4>
+                        <p>Crumbled cottage cheese scrambled with onions, tomatoes, green chillies and fragrant spices — a protein-rich favourite.</p>
+                        <div class="food-tags"><span class="food-tag">🧀 Paneer</span><span class="food-tag">🌶️ Spiced</span><span class="food-tag">💪 Protein</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=600&q=80" alt="Chana Dal" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Chana Dal</h4>
+                        <p>Split Bengal gram cooked till tender, tempered with hing and dried red chilli.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 Chana</span><span class="food-tag">🌿 Earthy</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=600&q=80" alt="Veg Pulao" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Vegetable Pulao</h4>
+                        <p>Basmati rice cooked with fresh vegetables, whole spices and saffron-tinted stock.</p>
+                        <div class="food-tags"><span class="food-tag">🥕 Colourful</span><span class="food-tag">🌸 Saffron</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥗 Salad</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80" alt="Kachumber Salad" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Kachumber Salad + Achaar</h4>
+                        <p>Diced cucumber, tomato and onion with lemon juice — light, crunchy and refreshing.</p>
+                        <div class="food-tags"><span class="food-tag">🍋 Lemony</span><span class="food-tag">💚 Fresh</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🫓 Bread</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Roti" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>4 Soft Roti</h4>
+                        <p>Thin whole-wheat rotis cooked on a hot tawa and finished with ghee.</p>
+                        <div class="food-tags"><span class="food-tag">🌾 Whole Wheat</span><span class="food-tag">🧈 Ghee</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="tuesday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Tonight's Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80" alt="Rajma" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Rajma Curry</h4>
+                        <p>Red kidney beans slow-simmered in a luscious tomato-onion gravy with warming Punjabi spices — comfort in a bowl.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 Kidney Beans</span><span class="food-tag">❤️ Punjabi</span><span class="food-tag">🌙 Slow Cook</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥘 Sabzi</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=600&q=80" alt="Bhindi Masala" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Bhindi Masala</h4>
+                        <p>Crisp okra tossed with onions, tomatoes and a punchy dry-spice blend.</p>
+                        <div class="food-tags"><span class="food-tag">🫑 Okra</span><span class="food-tag">🌶️ Masala</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1613390875817-8a3a76498f62?w=600&q=80" alt="Kheer" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Kheer + Plain Rice + 4 Phulka</h4>
+                        <p>Creamy rice pudding with cardamom and saffron, served alongside steamed rice and soft phulkas.</p>
+                        <div class="food-tags"><span class="food-tag">🌸 Cardamom</span><span class="food-tag">🍬 Sweet</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥛 Raita</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1606756389658-a1dd273b6cc0?w=600&q=80" alt="Boondi Raita" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Boondi Raita</h4>
+                        <p>Crispy boondi floated in thick curd seasoned with roasted cumin and black salt.</p>
+                        <div class="food-tags"><span class="food-tag">❄️ Cooling</span><span class="food-tag">🫧 Crispy</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEDNESDAY -->
+    <div class="menu-panel" id="wednesday">
+        <div class="meal-panel active" id="wednesday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Star of the Day</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&q=80" alt="Kadhai Paneer" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Kadhai Paneer</h4>
+                        <p>Paneer and capsicum cooked in a robust kadhai masala with whole spices — smoky, bold, irresistible.</p>
+                        <div class="food-tags"><span class="food-tag">🧀 Paneer</span><span class="food-tag">🫑 Capsicum</span><span class="food-tag">🔥 Kadhai</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=600&q=80" alt="Moong Dal" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Moong Dal</h4>
+                        <p>Light and digestive split green gram, tempered with mustard and curry leaves.</p>
+                        <div class="food-tags"><span class="food-tag">💚 Light</span><span class="food-tag">✨ Digestive</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?w=600&q=80" alt="Curd Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Curd Rice + 4 Chapati</h4>
+                        <p>South-style tempered curd rice with curry leaves, mustard seeds and green chilli.</p>
+                        <div class="food-tags"><span class="food-tag">🥛 Probiotic</span><span class="food-tag">❄️ Cooling</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥗 Sides</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Salad" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Onion Salad + Green Chutney</h4>
+                        <p>Sliced raw onions with lemon, paired with vibrant mint-coriander chutney.</p>
+                        <div class="food-tags"><span class="food-tag">🌿 Mint</span><span class="food-tag">🍋 Tangy</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="wednesday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Tonight's Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=800&q=80" alt="Aloo Matar" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Aloo Matar</h4>
+                        <p>Potatoes and green peas in a comforting tomato-based gravy — a classic homestyle curry that warms the soul.</p>
+                        <div class="food-tags"><span class="food-tag">🥔 Potato</span><span class="food-tag">🫛 Peas</span><span class="food-tag">🏡 Homestyle</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Mix Dal" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Mix Dal + Jeera Rice + 4 Roti</h4>
+                        <p>A wholesome blend of three lentils, served with jeera rice and hot rotis.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 3-Lentil Blend</span><span class="food-tag">🌾 Wholesome</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1627308595229-7830a5c18519?w=600&q=80" alt="Jalebi" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Jalebi</h4>
+                        <p>Crispy, syrup-soaked spirals of fermented batter — India's most beloved sweet treat.</p>
+                        <div class="food-tags"><span class="food-tag">🍬 Syrupy</span><span class="food-tag">🟡 Golden</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THURSDAY -->
+    <div class="menu-panel" id="thursday">
+        <div class="meal-panel active" id="thursday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Star of the Day</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80" alt="Palak Paneer" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Palak Paneer</h4>
+                        <p>Velvety spinach purée folded with golden-fried paneer cubes and a touch of cream — nutritious and delicious.</p>
+                        <div class="food-tags"><span class="food-tag">🥬 Spinach</span><span class="food-tag">🧀 Paneer</span><span class="food-tag">💪 Iron-Rich</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=600&q=80" alt="Arhar Dal" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Arhar Dal + Steamed Rice</h4>
+                        <p>Classic toor dal with a simple tadka of ghee, mustard and curry leaves.</p>
+                        <div class="food-tags"><span class="food-tag">🌿 Classic</span><span class="food-tag">🧈 Ghee Tadka</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🫓 Bread</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Phulka" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>4 Phulka Roti + Carrot Salad</h4>
+                        <p>Light rotis paired with grated carrot salad tossed in lemon and chaat masala.</p>
+                        <div class="food-tags"><span class="food-tag">🥕 Vitamin A</span><span class="food-tag">🌾 Whole Wheat</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="thursday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Tonight's Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=800&q=80" alt="Baingan Bharta" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Baingan Bharta</h4>
+                        <p>Flame-roasted eggplant mashed with sautéed onions, tomatoes and green chillies — rustic, smoky perfection.</p>
+                        <div class="food-tags"><span class="food-tag">🍆 Roasted</span><span class="food-tag">🔥 Smoky</span><span class="food-tag">🏡 Rustic</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=600&q=80" alt="Veg Biryani" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Veg Biryani + 4 Chapati</h4>
+                        <p>Fragrant basmati dum-cooked with seasonal vegetables, saffron and whole spices.</p>
+                        <div class="food-tags"><span class="food-tag">🌸 Dum Style</span><span class="food-tag">🌿 Aromatic</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1666711651912-be27d48a5978?w=600&q=80" alt="Ras Malai" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Ras Malai</h4>
+                        <p>Spongy cottage cheese discs soaked in chilled saffron-flavoured reduced milk.</p>
+                        <div class="food-tags"><span class="food-tag">🌸 Saffron</span><span class="food-tag">🍬 Royal Sweet</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="menu-panel" id="friday">
+        <div class="meal-panel active" id="friday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Star of the Day</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1631292784640-2b24be784d5d?w=800&q=80" alt="Matar Paneer" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Matar Paneer</h4>
+                        <p>Sweet green peas and paneer in a fragrant onion-tomato gravy — a wholesome, all-time favourite.</p>
+                        <div class="food-tags"><span class="food-tag">🫛 Green Peas</span><span class="food-tag">🧀 Paneer</span><span class="food-tag">🌿 Classic</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍚 Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1596560548464-f010b69bcd38?w=600&q=80" alt="Lemon Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Lemon Rice + Chana Dal</h4>
+                        <p>Tangy turmeric-yellow lemon rice with peanuts, mustard and curry leaves.</p>
+                        <div class="food-tags"><span class="food-tag">🍋 Tangy</span><span class="food-tag">🟡 Turmeric</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🫓 Sides</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Salad" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>4 Roti + Mix Veg Salad + Papad</h4>
+                        <p>Fresh seasonal salad tossed with herbs alongside crispy roasted papad and warm rotis.</p>
+                        <div class="food-tags"><span class="food-tag">🌈 Seasonal</span><span class="food-tag">🫓 Crispy</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="friday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Tonight's Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=800&q=80" alt="Shahi Paneer" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Shahi Paneer</h4>
+                        <p>Royal Mughal-style paneer in a cashew-cream gravy scented with cardamom and rose water — pure indulgence.</p>
+                        <div class="food-tags"><span class="food-tag">👑 Royal</span><span class="food-tag">🌹 Rose Water</span><span class="food-tag">🍶 Creamy</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal + Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=600&q=80" alt="Kashmiri Pulao" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Kashmiri Pulao + Dal Fry + 4 Phulka</h4>
+                        <p>Saffron pulao studded with dry fruits alongside crispy dal fry and fresh rotis.</p>
+                        <div class="food-tags"><span class="food-tag">🌸 Kashmiri</span><span class="food-tag">🫘 Dal Fry</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1666711651912-be27d48a5978?w=600&q=80" alt="Ladoo" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Motichoor Ladoo</h4>
+                        <p>Fine-grained boondi ladoos with cardamom and pistachios — a festive sweet every day.</p>
+                        <div class="food-tags"><span class="food-tag">🟡 Golden</span><span class="food-tag">🍬 Festive</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SATURDAY -->
+    <div class="menu-panel" id="saturday">
+        <div class="meal-panel active" id="saturday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Weekend Special</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=800&q=80" alt="Aloo Paratha" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Aloo Paratha Special</h4>
+                        <p>Thick whole-wheat flatbreads stuffed with spiced mashed potatoes, served with white butter and homemade pickle.</p>
+                        <div class="food-tags"><span class="food-tag">🥔 Stuffed</span><span class="food-tag">🧈 White Butter</span><span class="food-tag">🎉 Weekend</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1609501676725-7186f017a4b7?w=600&q=80" alt="Mix Dal" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Mix Dal + Curd</h4>
+                        <p>Three-lentil blend served with thick chilled curd — simple, satisfying Saturday comfort.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 3 Lentils</span><span class="food-tag">🥛 Probiotic</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥗 Sides</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Green Salad" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Green Salad + Pickle</h4>
+                        <p>A crisp medley of seasonal greens with lemon dressing and homemade mixed achaar.</p>
+                        <div class="food-tags"><span class="food-tag">💚 Fresh</span><span class="food-tag">🌿 Garden</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="saturday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Saturday Night</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=800&q=80" alt="Chole Masala" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Chole Masala</h4>
+                        <p>Bold, dark Punjabi chickpea curry cooked with tea bags and a smoky whole-spice gravy — deeply flavourful.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 Chickpeas</span><span class="food-tag">💪 Protein</span><span class="food-tag">🌶️ Punjabi Bold</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal + Rice</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1596560548464-f010b69bcd38?w=600&q=80" alt="Jeera Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Panchmel Dal + Jeera Rice + 4 Roti</h4>
+                        <p>Five-lentil Rajasthani dal with aromatic jeera rice and fresh rotis.</p>
+                        <div class="food-tags"><span class="food-tag">🌿 5-Lentil</span><span class="food-tag">🌾 Rajasthani</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1613390875817-8a3a76498f62?w=600&q=80" alt="Gajar Halwa" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Gajar Ka Halwa</h4>
+                        <p>Slow-stirred carrot pudding with khoya, ghee and nuts — winter warmth in a bowl.</p>
+                        <div class="food-tags"><span class="food-tag">🥕 Carrot</span><span class="food-tag">🧈 Ghee</span><span class="food-tag">🥜 Nuts</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUNDAY -->
+    <div class="menu-panel" id="sunday">
+        <div class="meal-panel active" id="sunday-lunch">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🎉 Sunday Feast</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=800&q=80" alt="Chole Bhature" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Chole Bhature</h4>
+                        <p>Puffy deep-fried bhature paired with tangy, spiced chickpea masala — the king of Sunday indulgence.</p>
+                        <div class="food-tags"><span class="food-tag">🫘 Chickpeas</span><span class="food-tag">🎉 Sunday Special</span><span class="food-tag">👑 Feast</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍞 Poori</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80" alt="Poori" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Poori (6 pcs) + Aloo Sabzi</h4>
+                        <p>Crispy golden pooris with tangy potato curry — the ultimate weekend combo.</p>
+                        <div class="food-tags"><span class="food-tag">🔆 Crispy</span><span class="food-tag">🥔 Aloo</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🥤 Drink</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1606756389658-a1dd273b6cc0?w=600&q=80" alt="Lassi" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Sweet Halwa + Lassi</h4>
+                        <p>Semolina halwa with saffron and chilled sweet lassi — the perfect Sunday finish.</p>
+                        <div class="food-tags"><span class="food-tag">🌸 Saffron</span><span class="food-tag">🥛 Chilled Lassi</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="meal-panel" id="sunday-dinner">
+            <div class="food-card-grid">
+                <div class="food-card featured">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">⭐ Grand Finale</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1645177628172-a94c1f96e6db?w=800&q=80" alt="Veg Fried Rice" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Special Paneer Tikka + Veg Fried Rice</h4>
+                        <p>Chargrilled marinated paneer alongside wok-tossed fried rice — a festive Sunday dinner to remember.</p>
+                        <div class="food-tags"><span class="food-tag">🧀 Paneer Tikka</span><span class="food-tag">🍚 Wok-Tossed</span><span class="food-tag">🎉 Festive</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍲 Dal</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Dal Tadka" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Dal Tadka + 4 Phulka + Mix Raita</h4>
+                        <p>Comforting dal tadka with soft phulkas and a colourful mixed raita to round off the week.</p>
+                        <div class="food-tags"><span class="food-tag">🌿 Tadka</span><span class="food-tag">🌈 Mix Raita</span></div>
+                    </div>
+                </div>
+                <div class="food-card">
+                    <div class="food-img-wrap">
+                        <span class="food-badge">🍮 Dessert</span>
+                        <img class="food-img" src="https://images.unsplash.com/photo-1613390875817-8a3a76498f62?w=600&q=80" alt="Ice Cream" loading="lazy" onerror="this.style.display='none'">
+                    </div>
+                    <div class="food-card-body">
+                        <h4>Kulfi Ice Cream</h4>
+                        <p>Creamy traditional kulfi with pistachios and rose — the sweetest way to end the week.</p>
+                        <div class="food-tags"><span class="food-tag">🍦 Kulfi</span><span class="food-tag">🌹 Rose</span><span class="food-tag">🥜 Pistachio</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section fade-in" id="booking">
+    <div class="section-header"><h2>Book Your Tiffin Service</h2><p>Fill out the form — we'll confirm within a few hours and start delivering on your chosen date</p></div>
+    <form class="booking-form" id="bookingForm" novalidate>
+        <div class="form-group"><label for="bName">Full Name *</label><input type="text" id="bName" name="name" placeholder="Your full name" required></div>
+        <div class="form-row">
+            <div class="form-group"><label for="bPhone">Mobile Number *</label><input type="tel" id="bPhone" name="phone" placeholder="10-digit number" pattern="[0-9]{10}" required></div>
+            <div class="form-group"><label for="bEmail">Email <span style="color:var(--muted);font-weight:400;">(for alerts)</span></label><input type="email" id="bEmail" name="email" placeholder="you@email.com"></div>
+        </div>
+        <div class="form-group"><label for="bAddress">Delivery Address *</label><textarea id="bAddress" name="address" rows="3" placeholder="Full delivery address..." required></textarea></div>
+        <div class="form-group"><label>Meal Type *</label><div class="radio-group"><label><input type="radio" name="meal_type" value="Lunch" required> 🌅 Lunch</label><label><input type="radio" name="meal_type" value="Dinner"> 🌙 Dinner</label><label><input type="radio" name="meal_type" value="Both"> 🌞 Both</label></div></div>
+        <div class="form-row">
+            <div class="form-group"><label for="bStart">Start Date *</label><input type="date" id="bStart" name="start_date" required></div>
+            <div class="form-group"><label for="bPlan">Subscription Plan *</label>
+                <select id="bPlan" name="plan_type" required><option value="">Select a plan</option><option value="1 Week">1 Week</option><option value="2 Weeks">2 Weeks</option><option value="1 Month">1 Month</option><option value="3 Months">3 Months</option><option value="6 Months">6 Months</option></select>
+            </div>
+        </div>
+        <div class="form-group"><label for="bNotes">Special Requirements</label><textarea id="bNotes" name="notes" rows="2" placeholder="Allergies, dietary preferences..."></textarea></div>
+        <button type="submit" class="btn btn-block" id="bookBtn">🍱 Submit Booking Request</button>
+        <p class="email-note">📧 Add your email to receive a booking confirmation and automatic subscription expiry reminders.</p>
+    </form>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section fade-in" id="contact">
+    <div class="contact-card">
+        <h2>Need to Talk to Us?</h2>
+        <p class="card-desc">Request a callback — our team will reach out to you shortly!</p>
+        <form class="contact-form" id="contactForm" novalidate>
+            <input type="text" id="cbName" name="name" placeholder="Your Name" required>
+            <input type="tel" id="cbPhone" name="phone" placeholder="Phone Number (10 digits)" pattern="[0-9]{10}" required>
+            <button type="submit" class="btn btn-white btn-block" id="cbBtn">📞 Request a Call</button>
+        </form>
+        <div class="contact-info"><p>📞 <strong>+91 98765 43210</strong></p><p>📧 <strong>contact@gharkhakhana.com</strong></p><p>⏰ <strong>8:00 AM – 9:00 PM</strong>, 7 days a week</p></div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand"><h3>🍱 Ghar Ka Khana</h3><p>Bringing the warmth and taste of home-cooked meals to your doorstep. Food made with love, just like your family would make it.</p></div>
+        <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#home">Home</a></li><li><a href="#gallery">Our Food</a></li><li><a href="#menu">Weekly Menu</a></li><li><a href="#booking">Book Now</a></li><li><a href="#contact">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Service Areas</h4><ul><li><a href="#">North Delhi</a></li><li><a href="#">South Delhi</a></li><li><a href="#">East Delhi</a></li><li><a href="#">West Delhi</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2025 Ghar Ka Khana. All rights reserved. Made with ❤️ for food lovers.</p></div>
+</footer>
+
+<div class="modal" id="successModal"><div class="modal-box"><div class="modal-icon" id="modalIcon">✅</div><h2 id="modalTitle">Thank You!</h2><p id="modalMsg"></p><button class="modal-close" onclick="closeModal()">Close</button></div></div>
+
+<script>
+/* Mobile nav */
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+/* SLIDER */
+const track=document.getElementById('sliderTrack');
+const slides=track.querySelectorAll('.slide');
+const dotsWrap=document.getElementById('sliderDots');
+let current=0,autoTimer;
+slides.forEach((_,i)=>{const d=document.createElement('button');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>goTo(i));dotsWrap.appendChild(d);});
+function goTo(n){current=(n+slides.length)%slides.length;track.style.transform=`translateX(-${current*100}%)`;dotsWrap.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===current));resetAuto();}
+function resetAuto(){clearInterval(autoTimer);autoTimer=setInterval(()=>goTo(current+1),4800);}
+document.getElementById('sliderPrev').addEventListener('click',()=>goTo(current-1));
+document.getElementById('sliderNext').addEventListener('click',()=>goTo(current+1));
+resetAuto();
+let tsX=0;
+track.addEventListener('touchstart',e=>{tsX=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{const dx=tsX-e.changedTouches[0].clientX;if(Math.abs(dx)>40)goTo(dx>0?current+1:current-1);});
+
+/* ── MODERN MENU LOGIC ── */
+let activeDay='monday', activeMeal='lunch';
+
+function showMenu(){
+    document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.meal-panel').forEach(p=>p.classList.remove('active'));
+    const dayPanel=document.getElementById(activeDay);
+    if(dayPanel){
+        dayPanel.classList.add('active');
+        const mealPanel=document.getElementById(`${activeDay}-${activeMeal}`);
+        if(mealPanel) mealPanel.classList.add('active');
+    }
+}
+
+// Day buttons
+document.querySelectorAll('.day-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        document.querySelectorAll('.day-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        activeDay=btn.dataset.day;
+        showMenu();
+    });
+});
+
+// Meal buttons
+document.querySelectorAll('.meal-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        document.querySelectorAll('.meal-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        activeMeal=btn.dataset.meal;
+        showMenu();
+    });
+});
+
+/* Booking */
+document.getElementById('bStart').min=new Date().toISOString().split('T')[0];
+document.getElementById('bookingForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const btn=document.getElementById('bookBtn'),form=e.target;
+    const data={name:form.name.value.trim(),phone:form.phone.value.trim(),email:form.email.value.trim(),address:form.address.value.trim(),meal_type:form.meal_type.value,plan_type:form.plan_type.value,start_date:form.start_date.value,notes:form.notes.value.trim()};
+    btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Submitting…';
+    try{
+        const res=await fetch('/api/bookings',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+        const result=await res.json();
+        if(result.success){showModal('✅','Booking Confirmed!',`Thank you ${data.name}! Your tiffin service is booked.\nWe'll confirm shortly.`+(data.email?'\n\n📧 A confirmation email has been sent. You will also receive subscription expiry reminders automatically.':''));form.reset();}
+        else{alert('Error: '+result.message);}
+    }catch{alert('Network error. Please try again.');}
+    finally{btn.disabled=false;btn.innerHTML='🍱 Submit Booking Request';}
+});
+
+/* Callback */
+document.getElementById('contactForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const btn=document.getElementById('cbBtn'),form=e.target;
+    const data={name:form.name.value.trim(),phone:form.phone.value.trim()};
+    btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Submitting…';
+    try{
+        const res=await fetch('/api/call-requests',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+        const result=await res.json();
+        if(result.success){showModal('📞','Request Received!',`Our team will contact you shortly, ${data.name}!`);form.reset();}
+        else{alert('Error: '+result.message);}
+    }catch{alert('Network error. Please try again.');}
+    finally{btn.disabled=false;btn.innerHTML='📞 Request a Call';}
+});
+
+/* Modal */
+function showModal(icon,title,msg){document.getElementById('modalIcon').textContent=icon;document.getElementById('modalTitle').textContent=title;document.getElementById('modalMsg').textContent=msg;document.getElementById('successModal').classList.add('show');}
+function closeModal(){document.getElementById('successModal').classList.remove('show');}
+document.getElementById('successModal').addEventListener('click',e=>{if(e.target.id==='successModal')closeModal();});
+
+/* Scroll fade */
+const io=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth'});});
+});
+</script>
+</body>
+</html>

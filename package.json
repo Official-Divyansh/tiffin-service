@@ -1,0 +1,31 @@
+{
+  "name": "tiffin-service-app",
+  "version": "3.0.0",
+  "description": "Full-stack Tiffin Service Application with PostgreSQL, Email Alerts & Image Menu",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "tiffin",
+    "food",
+    "delivery",
+    "nodemailer",
+    "postgresql"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.7",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
