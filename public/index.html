@@ -228,6 +228,10 @@
         .price-box p{font-size:.98rem;color:var(--muted);margin:.35rem 0;line-height:1.4;}
         .price-box strong{color:var(--dark);}
         .pricing-note{margin-top:1.1rem;font-size:.92rem;color:var(--muted);white-space:pre-line;}
+        .payment-section{margin:2rem auto 0;max-width:420px;text-align:center;background:var(--white);border:1px solid var(--border);border-radius:22px;padding:1.2rem;box-shadow:0 10px 30px var(--shadow);}
+        .payment-section h4{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:.35rem;color:var(--dark);}
+        .payment-section p{font-size:.92rem;color:var(--muted);margin-bottom:.9rem;}
+        .payment-qr{width:100%;max-width:320px;border-radius:14px;border:1px solid var(--border);}
         @media(max-width:768px){
             .pricing-grid{grid-template-columns:1fr;}
         }
@@ -1056,6 +1060,11 @@
         <div class="pricing-note">Note - we are serving 2 days in a week
 Same calculation se weekly ka rahe ga
 Weekly total (2 days/week): Veg 240/- , Non veg 280/-</div>
+        <div class="payment-section" aria-label="Online payment QR">
+            <h4>Scan & Pay</h4>
+            <p>Use Google Pay, PhonePe, Paytm, or any UPI app.</p>
+            <img class="payment-qr" src="payment-qr.png" alt="UPI payment QR code">
+        </div>
     </div>
     <form class="booking-form" id="bookingForm" novalidate>
         <div class="form-group"><label for="bName">Full Name *</label><input type="text" id="bName" name="name" placeholder="Your full name" required></div>
